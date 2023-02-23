@@ -4,6 +4,7 @@ import plotly.express as px
 import yfinance as yf
 from plotly import graph_objs as go
 import numpy as np
+import numpy
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
