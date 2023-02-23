@@ -35,9 +35,6 @@ def load_data(ticker):
 
 with tab2:
    selected_stock = st.text_input('Enter your stock',' ')
-   ticks=selected_stock
-   tick=yf.Ticker(ticks)
-   tick.news
    data_load_state = st.text('Loading data...')
    df = load_data(selected_stock)
    data_load_state.text('Loading data... done!')
