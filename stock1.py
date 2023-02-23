@@ -158,7 +158,7 @@ with tab4:
             lst_output.extend(yhat.tolist())
             i=i+1
 	
-	from alpha_vantage.timeseries import TimeSeries
+from alpha_vantage.timeseries import TimeSeries
 
 # Replace YOUR_API_KEY with your actual API key
 api_key = 'Q5YEP55V6QMX8RBH'
