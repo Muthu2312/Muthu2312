@@ -1,5 +1,4 @@
 import streamlit as st
-!pip install plotly cufflinks streamlit
 from datetime import date
 import plotly.express as px
 import yfinance as yf
