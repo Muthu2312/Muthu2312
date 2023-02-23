@@ -18,7 +18,7 @@ Run this command
 streamlit run path/to/stock1.py
 ```
 
-To update requirements.txt, navigate to folder containing web.py and execute the following
+To update requirements.txt, navigate to folder containing stock1.py and execute the following
 
 ```console
 python -m pigar -p .\requirements.txt
