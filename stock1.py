@@ -4,7 +4,6 @@ import plotly.express as px
 import yfinance as yf
 from plotly import graph_objs as go
 import numpy as np
-import numpy
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -13,9 +12,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
-
 import datetime as dt
-
 
 START=  dt.date(2021, 1, 1)
 END =  dt.datetime.today()
@@ -29,9 +26,6 @@ def load_data(ticker):
     data = yf.download(ticker, START, END)
     data.reset_index(inplace=True)
     return data
-
-
-
 
 with tab2:
    selected_stock = st.text_input('Enter your stock',' ')
@@ -91,7 +85,6 @@ with tab3:
    st.plotly_chart(fig4)
    st.plotly_chart(fig5)
 
-
 df1=df.reset_index()['Close']
 scaler=MinMaxScaler(feature_range=(0,1))
 df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
@@ -100,7 +93,6 @@ training_size=int(len(df1)*0.7)
 test_size=len(df1)-training_size
 train_data,test_data=df1[0:training_size,:],df1[training_size:len(df1),:1]
 
-import numpy
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, time_step=1):
 	dataX, dataY = [], []
@@ -117,7 +109,6 @@ X_test, ytest = create_dataset(test_data, time_step)
 X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
 X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
 
-
 with tab4:
     model=Sequential()
     model.add(LSTM(50,return_sequences=True,input_shape=(100,1)))
@@ -133,8 +124,6 @@ with tab4:
     train_predict=scaler.inverse_transform(train_predict)
     test_predict=scaler.inverse_transform(test_predict)
 
-
-
     x_input=test_data[len(test_data)-100:].reshape(1,-1)
     temp_input=list(x_input)
     temp_input=temp_input[0].tolist()
@@ -142,6 +131,7 @@ with tab4:
     lst_output=[]
     n_steps=100
     i=0
+
     while(i<30):
         if(len(temp_input)>100):
              #print(temp_input)
@@ -157,6 +147,7 @@ with tab4:
             #print(temp_input)
             lst_output.extend(yhat.tolist())
             i=i+1
+	
         else:
             x_input = x_input.reshape((1, n_steps,1))
             yhat = model.predict(x_input, verbose=0)
