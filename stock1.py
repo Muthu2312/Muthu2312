@@ -167,7 +167,7 @@ api_key = 'Q5YEP55V6QMX8RBH'
 ts = TimeSeries(key=api_key)
 
 # Retrieve the summary information for the AAPL ticker
-data, meta_data = ts.get_quote_endpoint(symbol='STOCK')
+data, meta_data = ts.get_quote_endpoint(symbol=STOCK)
 
 # Extract the relevant fields from the response
 name = data['01. symbol']
