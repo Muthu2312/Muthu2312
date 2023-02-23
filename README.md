@@ -21,5 +21,5 @@ streamlit run path/to/stock1.py
 To update requirements.txt, navigate to folder containing stock1.py and execute the following
 
 ```console
-python -m pigar -p .\requirements.txt
+yfinance==0.2.12(use latest update) 
 ```
