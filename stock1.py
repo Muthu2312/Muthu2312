@@ -157,3 +157,23 @@ with tab4:
             #print(len(temp_input))
             lst_output.extend(yhat.tolist())
             i=i+1
+	
+	from alpha_vantage.timeseries import TimeSeries
+
+# Replace YOUR_API_KEY with your actual API key
+api_key = 'Q5YEP55V6QMX8RBH'
+
+# Create a TimeSeries object with your API key
+ts = TimeSeries(key=api_key)
+
+# Retrieve the summary information for the AAPL ticker
+data, meta_data = ts.get_quote_endpoint(symbol='AAPL')
+
+# Extract the relevant fields from the response
+name = data['01. symbol']
+price = data['05. price']
+change = data['09. change']
+percent_change = data['10. change percent']
+
+# Display the summary information
+print(f'{name}: {price} ({change}, {percent_change})')
