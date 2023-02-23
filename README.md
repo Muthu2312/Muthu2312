@@ -15,7 +15,7 @@ pip install -r requirements.txt
 Run this command
 
 ```console
-streamlit run path/to/web.py
+streamlit run path/to/stock1.py
 ```
 
 To update requirements.txt, navigate to folder containing web.py and execute the following
