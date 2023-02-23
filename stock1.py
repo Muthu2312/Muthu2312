@@ -1,3 +1,5 @@
+conda install -c conda-forge streamlit
+conda install -c plotly plotly
 import streamlit as st
 from datetime import date
 import plotly.figure_factory as ff
