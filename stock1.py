@@ -118,7 +118,7 @@ with tab4:
     model.add(Dense(1))
     model.compile(loss='mean_squared_error',optimizer='adam')
 
-    model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=18,batch_size=64,verbose=1)
+    model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=18,batch_size=64,verbose=2)
     train_predict=model.predict(X_train)
     test_predict=model.predict(X_test)
 
