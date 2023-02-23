@@ -9,7 +9,6 @@ dash-core-components==2.0.0
 dash-html-components==2.0.0
 dash-table==5.0.0
 dask==2023.2.0
-fix-yahoo-finance==0.1.37
 gitdb==4.0.10
 GitPython==3.1.30
 html5lib==1.1
