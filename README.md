@@ -1,4 +1,4 @@
-# Personal_Project
+# Stock Market Prediction and Streamlit Deployement
 Config files for my GitHub profile.
 ## View this in action
 
