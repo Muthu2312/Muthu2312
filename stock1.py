@@ -176,4 +176,4 @@ change = data['09. change']
 percent_change = data['10. change percent']
 
 # Display the summary information
-print(f'{name}: {price} ({change}, {percent_change})')
+st.write(f'{name}: {price} ({change}, {percent_change})')
