@@ -170,7 +170,7 @@ ts = TimeSeries(key=api_key)
 data, meta_data = ts.get_quote_endpoint(symbol=STOCK)
 
 # Extract the relevant fields from the response
-name = data['01. symbol']
+# name = data['01. symbol']
 price = data['05. price']
 change = data['09. change']
 percent_change = data['10. change percent']
