@@ -41,7 +41,7 @@ with tab2:
 
 df1=df.copy()
 df1['Difference']=df1['Close']-df1['Open']
-
+STOCK=yf.Ticker(selected_stock)
 with tab3:
    fig = go.Figure(data=[go.Candlestick(x=df["Date"],
                       open=df["Open"],
@@ -167,7 +167,7 @@ api_key = 'Q5YEP55V6QMX8RBH'
 ts = TimeSeries(key=api_key)
 
 # Retrieve the summary information for the AAPL ticker
-data, meta_data = ts.get_quote_endpoint(symbol='AAPL')
+data, meta_data = ts.get_quote_endpoint(symbol='STOCK')
 
 # Extract the relevant fields from the response
 name = data['01. symbol']
