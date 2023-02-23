@@ -1,4 +1,4 @@
-# Project_P
+# Personal_Project
 Config files for my GitHub profile.
 ## View this in action
 
