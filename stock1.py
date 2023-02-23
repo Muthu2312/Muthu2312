@@ -1,4 +1,5 @@
 import streamlit as st
+pip install plotly cufflinks streamlit
 from datetime import date
 import plotly.express as px
 import yfinance as yf
@@ -13,6 +14,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
+
 
 import datetime as dt
 
