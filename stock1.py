@@ -1,5 +1,6 @@
 import streamlit as st
 from datetime import date
+import random
 import plotly.express as px
 import yfinance as yf
 from plotly import graph_objs as go
@@ -85,7 +86,9 @@ with tab3:
    st.plotly_chart(fig3)
    st.plotly_chart(fig4)
    st.plotly_chart(fig5)
-
+numpy.random.seed(1234)
+tf.compat.v1.random.set_random_seed(1234)
+tf.set_ra
 df1=df.reset_index()['Close']
 scaler=MinMaxScaler(feature_range=(0,1))
 df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
