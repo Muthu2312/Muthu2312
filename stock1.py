@@ -30,7 +30,7 @@ try:
 		data.reset_index(inplace=True)
 		return data
 except:
-	st.write("Enter the correct company code")
+	pass
 
 with tab2:
    selected_stock = st.text_input('Enter your stock',' ')
