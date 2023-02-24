@@ -23,14 +23,11 @@ st.title('Stock Prediction')
 st.subheader('Please Note: Just for Education purpose')
 
 tab2, tab3,tab4 = st.tabs(["Data", "Visualization", "Predictions{For the next 30 Days}"])
-# @st.cache_data
-try:
-	def load_data(ticker):
-		data = yf.download(ticker, START, END)
-		data.reset_index(inplace=True)
-		return data
-except:
-	pass
+@st.cache_data
+def load_data(ticker):
+	data = yf.download(ticker, START, END)
+	data.reset_index(inplace=True)
+	return data
 
 with tab2:
    selected_stock = st.text_input('Enter your stock',' ')
