@@ -1,42 +1,79 @@
 import streamlit as st
-import yfinance as finance
+from datetime import date
 
+import yfinance as yf
+from fbprophet import Prophet
+from fbprophet.plot import plot_plotly
+from plotly import graph_objs as go
+import pandas as pd
 
-def get_ticker(name):
-	company = finance.Ticker(name) # google
-	return company
+@st.cache
+def get_data():
+    path = 'stock.csv'
+    return pd.read_csv(path, low_memory=False)
 
+df = get_data()
+df = df.drop_duplicates(subset="Name", keep="first")
 
-# Project Details
-st.title("Build and Deploy Stock Market App Using Streamlit")
-st.header("A Basic Data Science Web Application")
-st.sidebar.header("Geeksforgeeks \n TrueGeeks")
+START = "2015-01-01"
+TODAY = date.today().strftime("%Y-%m-%d")
 
-company1 = get_ticker("AAPL")
-company2 = get_ticker("MSFT")
+st.title("Stock Prediction")
+st.write("###")
 
-# fetches the data: Open, Close, High, Low and Volume
-google = finance.download("AAPL", start="2021-10-01", end="2021-10-01")
-microsoft = finance.download("MSFT", start="2021-10-01", end="2021-10-01")
+stocks = df['Name']
+# stocks = ("AAPL", "NFLX", "GOOG", "MSFT", "INFY", "RPOWER.NS", "BAJFINANCE.NS", "YESBANK.NS", "RCOM.NS", "EXIDEIND.NS", "TATACHEM.NS", "TATAMOTORS.NS", "RUCHI.NS")
+selected_stock = st.selectbox("Select dataset and years for prediction", stocks)
 
-# Valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
-data1 = company1.history(period="3mo")
-data2 = company2.history(period="3mo")
+index = df[df["Name"]==selected_stock].index.values[0]
+symbol = df["Symbol"][index]
 
-# markdown syntax
-st.write("""
-### Apple
-""")
+n_years = st.slider("", 1, 5)
+period = n_years * 365
 
-# detailed summary on Google
-st.write(company1.info['longBusinessSummary'])
-st.write(Apple)
+@st.cache
+def load_data(ticker):
+    data = yf.download(ticker, START, TODAY)
+    data.reset_index(inplace=True)
+    return data
 
-# plots the graph
-st.line_chart(data1.values)
+data_load_state = st.text("Load data ...")
+data = load_data(symbol)
+data_load_state.text("Loading data ... Done!")
 
-st.write("""
-### Microsoft
-""")
-st.write(company2.info['longBusinessSummary'], "\n", microsoft)
-st.line_chart(data2.values)
+st.write("###")
+
+st.subheader("Raw data")
+st.write(data.tail())
+
+def plot_raw_data():
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name='stock_open'))
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name='stock_close'))
+    fig.layout.update(title_text = "Time Series Data", xaxis_rangeslider_visible = True)
+    st.plotly_chart(fig)
+
+plot_raw_data()
+
+#Forecasting
+df_train = data[['Date', 'Close']]
+df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+
+m = Prophet()
+m.fit(df_train)
+
+future = m.make_future_dataframe(periods=period)
+forecast = m.predict(future)
+
+st.write("***")
+st.write("###")
+
+st.subheader("Forecast data")
+st.write(forecast.tail())
+
+fig1 = plot_plotly(m, forecast)
+st.plotly_chart(fig1)
+
+st.subheader("Forecast Components")
+fig2 = m.plot_components(forecast)
+st.write(fig2)
