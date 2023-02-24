@@ -40,4 +40,3 @@ st.write("""
 """)
 st.write(company2.info['longBusinessSummary'], "\n", microsoft)
 st.line_chart(data2.values)
-
