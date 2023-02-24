@@ -29,7 +29,7 @@ st.write("""
 """)
 
 # detailed summary on Google
-st.write(company1.info['longBusinessSummary'])
+st.write(company1.info['longBusinessSummary'], "\n", companny1)
 st.write(google)
 
 # plots the graph
