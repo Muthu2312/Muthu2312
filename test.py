@@ -12,11 +12,11 @@ st.title("Build and Deploy Stock Market App Using Streamlit")
 st.header("A Basic Data Science Web Application")
 st.sidebar.header("Geeksforgeeks \n TrueGeeks")
 
-company1 = get_ticker("GOOGL")
+company1 = get_ticker("AAPL")
 company2 = get_ticker("MSFT")
 
 # fetches the data: Open, Close, High, Low and Volume
-google = finance.download("GOOGL", start="2021-10-01", end="2021-10-01")
+google = finance.download("AAPL", start="2021-10-01", end="2021-10-01")
 microsoft = finance.download("MSFT", start="2021-10-01", end="2021-10-01")
 
 # Valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
@@ -25,12 +25,12 @@ data2 = company2.history(period="3mo")
 
 # markdown syntax
 st.write("""
-### Google
+### Apple
 """)
 
 # detailed summary on Google
-st.write(company1.info['longBusinessSummary'], "\n", companny1)
-st.write(google)
+st.write(company1.info['longBusinessSummary'])
+st.write(Apple)
 
 # plots the graph
 st.line_chart(data1.values)
