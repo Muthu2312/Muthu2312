@@ -12,7 +12,7 @@ st.title("Build and Deploy Stock Market App Using Streamlit")
 st.header("A Basic Data Science Web Application")
 st.sidebar.header("Geeksforgeeks \n TrueGeeks")
 
-company1 = get_ticker("GOOGL")
+company1 = get_ticker(GOOGL)
 company2 = get_ticker("MSFT")
 
 # fetches the data: Open, Close, High, Low and Volume
