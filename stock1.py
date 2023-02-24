@@ -211,10 +211,10 @@ if search_button:
     company.get_efficiency_ratios()
 
 st.header('Company overview')
-    overview_index = ['Enterprise value', 'Market cap', 'EV/sales ratio', 'P/E ratio']
-    overview_df = pd.DataFrame(company.overview_dict, index = overview_index)
-    st.line_chart(company.prices)
-    st.table(overview_df)
+overview_index = ['Enterprise value', 'Market cap', 'EV/sales ratio', 'P/E ratio']
+overview_df = pd.DataFrame(company.overview_dict, index = overview_index)
+st.line_chart(company.prices)
+st.table(overview_df)
 
     with st.beta_expander('Profit margins (as of {})'.format(company.year_end)):
         profit_margin_index = ['Gross margin', 'Operating margin', 'Net margin']
