@@ -19,8 +19,7 @@ selected=option_menu(
         "container": {"padding": "0!important", "background-color": "#fafafa"},
         "icon": {"color": "orange", "font-size": "30px"}, 
         "nav-link": {"font-size": "14px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "green"},
-    }
+        "nav-link-selected": {"background-color": "green"}
     )
 START=  dt.date(2021, 1, 1)
 END =  dt.datetime.today()
