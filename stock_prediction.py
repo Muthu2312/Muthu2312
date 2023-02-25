@@ -1,3 +1,4 @@
+#Import required Libraries
 import streamlit as st
 from streamlit_option_menu import option_menu
 import datetime as dt
@@ -8,7 +9,13 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import plotly.express as px
 import pandas as pd
+import yfinance as yf
+import pandas as pd
+import streamlit as st
+import plotly.graph_objs as go
 import numpy
+
+
 selected=option_menu(
         menu_title='Main Menu',
         options= ['About','Basic Info','Graphical Analysis','Prediction and Analysis'],
@@ -36,10 +43,7 @@ def search_symbol(stock_name):
     df = pd.read_csv('stock.csv')
     df.dropna(inplace=True)
     return df
-import yfinance as yf
-import pandas as pd
-import streamlit as st
-import plotly.graph_objs as go
+
 
 # load the stock symbols and names
 
@@ -60,7 +64,7 @@ def search_symbol(stock_symbol):
     # st.header(f"{stock_name} ({stock_symbol}) Stock Price")
     return data
 
-search_term1 = st.text_input("Enter a stock symbol:", value='aapl', key='symbol-input')
+search_term1 = st.text_input("Enter a stock symbol:")
 search_term = search_term1.upper()
 stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
 data1=search_symbol(search_term)
