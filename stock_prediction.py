@@ -216,8 +216,6 @@ if selected=='Predictions':
         model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=18,batch_size=64,verbose=1)
         train_predict=model.predict(X_train)
         test_predict=model.predict(X_test)
-        train_predict=scaler.inverse_transform(train_predict)
-        test_predict=scaler.inverse_transform(test_predict)
 
         x_input=test_data[len(test_data)-100:].reshape(1,-1)
         temp_input=list(x_input)
