@@ -142,7 +142,7 @@ if selected=='Graphical Analyser':
         st.plotly_chart(fig3,renderer='webgl')
         
 
-df1=data1.reset_index()['Close']
+df1=data1['Close']
 scaler=MinMaxScaler(feature_range=(0,1))
 # df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
 df1=np.array(df1)
