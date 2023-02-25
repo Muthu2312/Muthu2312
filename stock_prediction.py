@@ -73,12 +73,11 @@ except:
         pass
 
 if selected=='Basic Info':
-        with placeholder.container():
-                if search_term:
-                        if search_term in df['Symbol'].values:
-                                data1=search_symbol(search_term)
-                                placeholder.header(f"{stock_name} ({search_term}) Stock Price")
-                                placeholder.experimental_data_editor(data1)
+        if search_term:
+                if search_term in df['Symbol'].values:
+                        data1=search_symbol(search_term)
+                        placeholder.header(f"{stock_name} ({search_term}) Stock Price")
+                        placeholder.experimental_data_editor(data1)
                 else:
                         placeholder.write(f"No stock found for symbol '{search_term}'")
     
