@@ -63,6 +63,7 @@ def search_symbol(stock_symbol):
     data.reset_index(inplace=True)
     # st.header(f"{stock_name} ({stock_symbol}) Stock Price")
     return data
+search_term1=st.empty()
 try:
         search_term1 = st.text_input("Enter a stock symbol:")
         search_term = search_term1.upper()
@@ -72,13 +73,14 @@ except:
         pass
 
 if selected=='Basic Info':
-    if search_term:
-        if search_term in df['Symbol'].values:
-            data1=search_symbol(search_term)
-            st.header(f"{stock_name} ({search_term}) Stock Price")
-            st.experimental_data_editor(data1)
-        else:
-            st.write(f"No stock found for symbol '{search_term}'")
+        with search_term1.container():
+                if search_term:
+                        if search_term in df['Symbol'].values:
+                                data1=search_symbol(search_term)
+                                st.header(f"{stock_name} ({search_term}) Stock Price")
+                                st.experimental_data_editor(data1)
+                else:
+                        st.write(f"No stock found for symbol '{search_term}'")
     
 if selected=='Graphical Analysis':
     options = ['Option 1', 'Option 2', 'Option 3','Option 4','Option 5','Option 6']
@@ -136,7 +138,8 @@ if selected=='Graphical Analysis':
     if selected_options=='Option 3':
         fig3 = px.box(data1, x=data1['Date'].dt.year, y='Close', points='all', title='Closing Prices by Year')
         st.plotly_chart(fig3,renderer='webgl')
-        
+df1=data1.reset_index()['Close']
+       
 if selected=='Prediction and Analysis':
         df1=data1.reset_index()['Close']
         st.write(df1)
