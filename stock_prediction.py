@@ -105,7 +105,6 @@ if selected=='Graphical Analyser':
                     st.write('-Patterns and Trends in Share Prices.')
                     st.write('-Emotions of Trades.')
 
-
     if selected_options=='Option 2':
         trace_close = go.Scatter(
             x=data1['Date'],
@@ -137,7 +136,8 @@ if selected=='Graphical Analyser':
         fig3 = px.box(data1, x=data1['Date'].dt.year, y='Close', points='all', title='Closing Prices by Year')
         st.plotly_chart(fig3,renderer='webgl')
 
-       
+else:
+        pass
 if selected=='Predictions':
         df1=data1.reset_index()['Close']
         st.write(df1)
