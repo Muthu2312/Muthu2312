@@ -35,6 +35,7 @@ def search_symbol(stock_name):
     # create sample dataframe
     df = pd.read_csv('stock.csv')
     df.dropna(inplace=True)
+    return df
 import yfinance as yf
 import pandas as pd
 import streamlit as st
