@@ -8,8 +8,6 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import plotly.express as px
 import pandas as pd
-import streamlit_analytics as sta
-
 
 selected=option_menu(
         menu_title='Main Menu',
