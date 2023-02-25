@@ -81,7 +81,7 @@ if selected=='Basic Info':
                                 st.experimental_data_editor(data1)
                 else:
                         st.write(f"No stock found for symbol '{search_term}'")
-                 search_term1.empty()
+                        search_term1.empty()
     
 if selected=='Graphical Analysis':
     options = ['Option 1', 'Option 2', 'Option 3','Option 4','Option 5','Option 6']
