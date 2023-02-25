@@ -79,13 +79,6 @@ if selected=='Data Viewer':
                         st.experimental_data_editor(data1)
                 else:
                         st.write(f"No stock found for symbol '{search_term}'")
-try:
-        search_term1 = st.text_input("Enter a stock symbol:")
-        search_term = search_term1.upper()
-        stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
-        data1=search_symbol(search_term)
-except:
-        pass
 
 if selected=='Graphical Analyser':
     options = ['Option 1', 'Option 2', 'Option 3','Option 4','Option 5','Option 6']
