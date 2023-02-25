@@ -68,8 +68,7 @@ try:
         search_term = search_term1.upper()
         stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
         data1=search_symbol(search_term)
-except:
-        st.write("There is no such companies")
+
 
 if selected=='Basic Info':
     if search_term:
