@@ -1,23 +1,26 @@
 #Import required Libraries
 import streamlit as st
 from streamlit_option_menu import option_menu
-import datetime as dt
-import yfinance as yf
 import time
 import requests
-import plotly.graph_objs as go
 from plotly.subplots import make_subplots
-import plotly.express as px
-import pandas as pd
-import yfinance as yf
-import pandas as pd
 import streamlit as st
-import plotly.graph_objs as go
+from datetime import date
+import plotly.express as px
+import yfinance_ez as yf
+from plotly import graph_objs as go
+import numpy as np
 import numpy
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
+
+import datetime as dt
 
 selected=option_menu(
         menu_title='Main Menu',
