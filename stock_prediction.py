@@ -18,8 +18,8 @@ import numpy
 
 selected=option_menu(
         menu_title='Main Menu',
-        options= ['Search','Basic Info','Graphical Analysis','Prediction and Analysis'],
-        icons=['search','info-circle-fill','graph-up','activity'],
+        options= ['Basic Info','Graphical Analysis','Prediction and Analysis'],
+        icons=['info-circle-fill','graph-up','activity'],
         default_index=0,
         orientation='horizontal',
         styles={
