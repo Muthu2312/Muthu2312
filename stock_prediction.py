@@ -81,6 +81,13 @@ if selected=='Data Viewer':
                         st.write(f"No stock found for symbol '{search_term}'")
 
 if selected=='Graphical Analyser':
+        try:
+                search_term1 = st.text_input("Enter a stock symbol:")
+                search_term = search_term1.upper()
+                stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
+                data1=search_symbol(search_term)
+        except:
+                pass
     options = ['Option 1', 'Option 2', 'Option 3','Option 4','Option 5','Option 6']
     selected_options = st.selectbox('Select options:', options)
     if selected_options=='Option 1':
@@ -104,8 +111,7 @@ if selected=='Graphical Analyser':
                     st.write('-Lowest Buy Price.')
                     st.write('-Patterns and Trends in Share Prices.')
                     st.write('-Emotions of Trades.')
-    else:
-        st.write(f"No stock found for symbol '{search_term}'")
+
                         
 
     if selected_options=='Option 2':
