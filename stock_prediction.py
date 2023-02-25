@@ -104,8 +104,8 @@ if selected=='Graphical Analyser':
                     st.write('-Lowest Buy Price.')
                     st.write('-Patterns and Trends in Share Prices.')
                     st.write('-Emotions of Trades.')
-                else:
-                        st.write(f"No stock found for symbol '{search_term}'")
+    else:
+        st.write(f"No stock found for symbol '{search_term}'")
                         
 
     if selected_options=='Option 2':
