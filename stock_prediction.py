@@ -7,7 +7,7 @@ from plotly.subplots import make_subplots
 import streamlit as st
 from datetime import date
 import plotly.express as px
-import yfinance_ez as yf
+import yfinance as yf
 from plotly import graph_objs as go
 import numpy as np
 import numpy
