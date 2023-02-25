@@ -8,7 +8,7 @@ import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import plotly.express as px
 import pandas as pd
-
+import numpy
 selected=option_menu(
         menu_title='Main Menu',
         options= ['About','Basic Info','Graphical Analysis','Prediction and Analysis'],
