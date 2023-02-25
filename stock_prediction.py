@@ -18,7 +18,7 @@ import numpy
 
 selected=option_menu(
         menu_title='Main Menu',
-        options= ['About','Basic Info','Graphical Analysis','Prediction and Analysis'],
+        options= ['Search','Basic Info','Graphical Analysis','Prediction and Analysis'],
         icons=['door-open','buildings-fill','clipboard-data-fill','activity'],
         default_index=0,
         orientation='horizontal',
