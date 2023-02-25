@@ -63,9 +63,8 @@ def search_symbol(stock_symbol):
     data.reset_index(inplace=True)
     # st.header(f"{stock_name} ({stock_symbol}) Stock Price")
     return data
-placeholder=st.empty()
 try:
-        search_term1 = placeholder.text_input("Enter a stock symbol:")
+        search_term1 = st.text_input("Enter a stock symbol:")
         search_term = search_term1.upper()
         stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
         data1=search_symbol(search_term)
@@ -76,10 +75,10 @@ if selected=='Basic Info':
         if search_term:
                 if search_term in df['Symbol'].values:
                         data1=search_symbol(search_term)
-                        placeholder.header(f"{stock_name} ({search_term}) Stock Price")
-                        placeholder.experimental_data_editor(data1)
+                        st.header(f"{stock_name} ({search_term}) Stock Price")
+                        st.experimental_data_editor(data1)
                 else:
-                        placeholder.write(f"No stock found for symbol '{search_term}'")
+                        st.write(f"No stock found for symbol '{search_term}'")
     
 if selected=='Graphical Analysis':
     options = ['Option 1', 'Option 2', 'Option 3','Option 4','Option 5','Option 6']
