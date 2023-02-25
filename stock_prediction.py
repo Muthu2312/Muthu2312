@@ -137,3 +137,4 @@ if selected=='Graphical Analysis':
         fig3 = px.box(data1, x=data1['Date'].dt.year, y='Close', points='all', title='Closing Prices by Year')
         st.plotly_chart(fig3,renderer='webgl')
          
+#
