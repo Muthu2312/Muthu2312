@@ -64,10 +64,10 @@ def search_symbol(stock_symbol):
     # st.header(f"{stock_name} ({stock_symbol}) Stock Price")
     return data
 with st.container():
-    search_term1 = st.text_input("Enter a stock symbol:")
-    search_term = search_term1.upper()
-    stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
-    data1=search_symbol(search_term)
+search_term1 = st.text_input("Enter a stock symbol:")
+search_term = search_term1.upper()
+stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
+data1=search_symbol(search_term)
 
 
 
