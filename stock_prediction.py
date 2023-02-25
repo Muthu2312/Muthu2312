@@ -137,7 +137,7 @@ if selected=='Graphical Analyser':
         st.plotly_chart(fig3,renderer='webgl')
 
 else:
-        pass
+        break
 if selected=='Predictions':
         df1=data1.reset_index()['Close']
         st.write(df1)
