@@ -143,9 +143,9 @@ if selected=='Graphical Analyser':
         
 
 df1=data1.reset_index()['Close']
+scaler=MinMaxScaler(feature_range=(0,1))
+df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
 st.write(df1)
-# scaler=MinMaxScaler(feature_range=(0,1))
-# df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
 # training_size=int(len(df1)*0.65)
 # test_size=len(df1)-training_size
 # train_data,test_data=df1[0:training_size,:],df1[training_size:len(df1),:1]
