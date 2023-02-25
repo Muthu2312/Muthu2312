@@ -18,7 +18,7 @@ import numpy
 
 selected=option_menu(
         menu_title='Main Menu',
-        options= ['Basic Info','Graphical Analysis','Prediction and Analysis'],
+        options= ['Data Viewer','Graphical Analyser','Predictions'],
         icons=['info-circle-fill','graph-up','activity'],
         default_index=0,
         orientation='horizontal',
