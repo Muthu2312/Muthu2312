@@ -65,6 +65,7 @@ def search_symbol(stock_symbol):
     return data
 
 search_term1 = st.text_input("Enter a stock symbol:")
+search_term1 = st.empty()
 search_term = search_term1.upper()
 stock_name = df[df['Symbol'] == search_term]['Name'].iloc[0]
 data1=search_symbol(search_term)
