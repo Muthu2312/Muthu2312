@@ -17,6 +17,7 @@ import numpy
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
+from sklearn.preprocessing import MinMaxScaler
 
 selected=option_menu(
         menu_title='Main Menu',
