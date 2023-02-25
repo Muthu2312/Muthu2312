@@ -71,7 +71,7 @@ try:
 except:
         pass
 
-if selected=='Basic Info':
+if selected=='Data Viewer':
         if search_term:
                 if search_term in df['Symbol'].values:
                         data1=search_symbol(search_term)
@@ -80,7 +80,7 @@ if selected=='Basic Info':
                 else:
                         st.write(f"No stock found for symbol '{search_term}'")
     
-if selected=='Graphical Analysis':
+if selected=='Graphical Analyser':
     options = ['Option 1', 'Option 2', 'Option 3','Option 4','Option 5','Option 6']
     selected_options = st.selectbox('Select options:', options)
     if selected_options=='Option 1':
@@ -138,7 +138,7 @@ if selected=='Graphical Analysis':
         st.plotly_chart(fig3,renderer='webgl')
 
        
-if selected=='Prediction and Analysis':
+if selected=='Predictions':
         df1=data1.reset_index()['Close']
         st.write(df1)
 #
