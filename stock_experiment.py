@@ -1,7 +1,7 @@
 import streamlit as st
 from datetime import date
 import plotly.express as px
-import yfinance_ez as yf
+import yfinance-ez as yf
 from plotly import graph_objs as go
 import numpy as np
 import numpy
