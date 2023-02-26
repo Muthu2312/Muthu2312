@@ -16,19 +16,22 @@ from sklearn.preprocessing import MinMaxScaler
 from streamlit_option_menu import option_menu
 
 import datetime as dt
-selected=option_menu(
-        menu_title='Stock Market Prediction',
-        options= ['About','Application'],
-        icons=['buildings-fill','clipboard-data-fill'],
-        default_index=0,
-        orientation='horizontal',
-        styles={
-        "container": {"padding": "0!important", "background-color": "#fafafa"},
-        "icon": {"color": "orange", "font-size": "30px"}, 
-        "nav-link": {"font-size": "14px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "green"},
-    }
-    )
+try:
+        selected=option_menu(
+                menu_title='Stock Market Prediction',
+                options= ['About','Application'],
+                icons=['buildings-fill','clipboard-data-fill'],
+                default_index=0,
+                orientation='horizontal',
+                styles={
+                "container": {"padding": "0!important", "background-color": "#fafafa"},
+                "icon": {"color": "orange", "font-size": "30px"}, 
+                "nav-link": {"font-size": "14px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+                "nav-link-selected": {"background-color": "green"},
+            }
+            )
+except:
+        pass
 data=pd.read_csv('stock.csv')
 data.dropna(inplace=True)
 START=  dt.date(2021, 1, 1)
