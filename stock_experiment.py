@@ -188,6 +188,7 @@ try:
                         print(yhat[0])
                         temp_input.extend(yhat[0])
                         #print(len(temp_input))
+                        yhat = [element for innerList in yhat for element in innerList]
                         lst_output.extend(yhat)
                         i=i+1
 except:
