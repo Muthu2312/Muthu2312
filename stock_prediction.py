@@ -29,6 +29,7 @@ selected=option_menu(
         "nav-link-selected": {"background-color": "#13A88A"},
     }
     )
+
 data=pd.read_csv('stock.csv')
 data.dropna(inplace=True)
 START=  dt.date(2021, 1, 1)
@@ -136,8 +137,6 @@ try:
         test_size=len(df1)-training_size
         train_data,test_data=df1[0:training_size,:],df1[training_size:len(df1),:1]
 
-        import numpy
-        # convert an array of values into a dataset matrix
         def create_dataset(dataset, time_step=1):
             dataX, dataY = [], []
             for i in range(len(dataset)-time_step-1):
@@ -169,8 +168,6 @@ try:
             train_predict=scaler.inverse_transform(train_predict)
             test_predict=scaler.inverse_transform(test_predict)
 
-
-
             x_input=test_data[len(test_data)-100:].reshape(1,-1)
             temp_input=list(x_input)
             temp_input=temp_input[0].tolist()
@@ -180,25 +177,19 @@ try:
             i=0
             while(i<31):
                 if(len(temp_input)>100):
-                    #print(temp_input)
                     x_input=np.array(temp_input[1:])
-                    #print("{} day input {}".format(i,x_input))
                     x_input=x_input.reshape(1,-1)
                     x_input = x_input.reshape((1, n_steps, 1))
-                    #print(x_input)
                     yhat = model.predict(x_input, verbose=0)
                     st.write("For Day {}, the predicted output is {}".format(i,scaler.inverse_transform(yhat)))
                     temp_input.extend(yhat[0].tolist())
                     temp_input=temp_input[1:]
-                    #print(temp_input)
                     lst_output.extend(yhat.tolist())
                     i=i+1
                 else:
                     x_input = x_input.reshape((1, n_steps,1))
                     yhat = model.predict(x_input, verbose=0)
-                    # print(yhat[0])
                     temp_input.extend(yhat[0].tolist())
-                    #print(len(temp_input))
                     lst_output.extend(yhat.tolist())
                     i=i+1
 
