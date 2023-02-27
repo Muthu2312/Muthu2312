@@ -17,9 +17,9 @@ from streamlit_option_menu import option_menu
 
 import datetime as dt
 selected=option_menu(
-        menu_title='Stock Market Prediction',
-        options= ['About','Application'],
-        icons=['buildings-fill','clipboard-data-fill'],
+        menu_title=('Stock Market Prediction'),
+        options= (['About','Application']),
+        icons=(['buildings-fill','clipboard-data-fill']),
         default_index=0,
         orientation='horizontal',
         styles={
