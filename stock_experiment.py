@@ -186,10 +186,9 @@ try:
                         x_input = x_input.reshape((1, n_steps,1))
                         yhat = model.predict(x_input, verbose=0)
                         print(yhat[0])
-                        yhat[0] = [element for innerList in yhat[0] for element in innerList]
                         temp_input.extend(yhat[0])
                         #print(len(temp_input))
-                        yhat = [element for innerList in yhat for element in innerList]
+                        
                         lst_output.extend(yhat)
                         i=i+1
 except:
