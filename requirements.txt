@@ -19,7 +19,7 @@ plotly-express==0.4.0
 protobuf==3.19.6
 scikit-image==0.19.3
 scikit-learn==1.2.1
-streamlit==1.18.1
+streamlit==1.19.0
 tensorflow==2.11.0
 xgboost==1.7.3
 yfinance==0.2.12
