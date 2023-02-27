@@ -177,18 +177,18 @@ try:
                         #print(x_input)
                         yhat = model.predict(x_input, verbose=0)
                         st.write("For Day {}, the predicted output is {}".format(i,scaler.inverse_transform(yhat)))
-                        temp_input.extend(yhat[0].tolist())
+                        temp_input.extend(yhat[0])
                         temp_input=temp_input[1:]
                         #print(temp_input)
-                        lst_output.extend(yhat.tolist())
+                        lst_output.extend(yhat)
                         i=i+1
                     else:
                         x_input = x_input.reshape((1, n_steps,1))
                         yhat = model.predict(x_input, verbose=0)
                         print(yhat[0])
-                        temp_input.extend(yhat[0].tolist())
+                        temp_input.extend(yhat[0])
                         #print(len(temp_input))
-                        lst_output.extend(yhat.tolist())
+                        lst_output.extend(yhat)
                         i=i+1
 except:
         pass
