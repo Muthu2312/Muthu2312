@@ -1,6 +1,5 @@
 import streamlit as st
 from datetime import date
-streamlit config show
 import plotly.express as px
 import yfinance as yf
 from plotly import graph_objs as go
