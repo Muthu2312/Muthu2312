@@ -185,10 +185,10 @@ try:
                     else:
                         x_input = x_input.reshape((1, n_steps,1))
                         yhat = model.predict(x_input, verbose=0)
-                        # print(yhat[0])
+                        print(yhat[0])
                         temp_input.extend(yhat[0].tolist())
                         #print(len(temp_input))
-#                         lst_output.extend(yhat.tolist())
+                        lst_output.extend(yhat.tolist())
                         i=i+1
 except:
         pass
