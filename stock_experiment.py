@@ -180,7 +180,7 @@ try:
                         temp_input.extend(yhat[0])
                         temp_input=temp_input[1:]
                         #print(temp_input)
-                        lst_output.extend(yhat[0])
+                        lst_output.extend(yhat[0][0])
                         i=i+1
                     else:
                         x_input = x_input.reshape((1, n_steps,1))
@@ -189,7 +189,7 @@ try:
                         temp_input.extend(yhat[0])
                         #print(len(temp_input))
                         
-                        lst_output.extend(yhat[0])
+                        lst_output.extend(yhat[0][0])
                         i=i+1
 except:
         pass
