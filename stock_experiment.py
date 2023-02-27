@@ -29,10 +29,6 @@ selected=option_menu(
                 "nav-link-selected": {"background-color": "green"}
         }
         )
-if selected:
-    st.success('Yay! 🎉')
-else:
-    st.warning('No option is selected')
 
 data=pd.read_csv('stock.csv')
 data.dropna(inplace=True)
