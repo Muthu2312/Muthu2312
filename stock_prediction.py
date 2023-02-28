@@ -195,4 +195,4 @@ try:
             st.header(f'Stock symbol {selected_stock} not found.')
         
 except:
-    pass
+    st.write("Enter stock In capital letters")
