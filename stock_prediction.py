@@ -81,7 +81,6 @@ try:
         data.dropna(inplace=True)
         selected_stock = st.text_input('Enter your stock, eg. AAPL')
         selected_stock1=selected_stock.upper()
-        st.write({Selected_stock1})
         df = load_data(selected_stock1)
         stock_name = data.loc[data['Symbol'].str.upper() == selected_stock, 'Name'].values[0]
         if selected_stock1 in data['Symbol'].str.upper().values:
