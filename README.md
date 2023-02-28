@@ -4,6 +4,7 @@ Config files for my GitHub profile.
 
 Using [streamlit](https://streamlit.io) to show the [Stock market prediction](https://c19sitdash.azurewebsites.net/) based on real time experience [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://muthu2312-stock-deployment-stock-prediction-wv6nnq.streamlit.app/)
 
+![Annotation 2021-05-25 131910](http://url/to/img.png)
 ![alt text](http://url/to/img.png?raw=true)
 
 ## Code execution
