@@ -192,7 +192,7 @@ try:
                             i=i+1
                         
         else:
-            st.header(f'Stock symbol {selected_stock} not found.')
+                st.header(f'Stock symbol {selected_stock} not found.')
         
 except:
-    st.write("Enter stock In capital letters")
+        st.write("Enter stock In capital letters")
