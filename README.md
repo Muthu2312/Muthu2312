@@ -4,8 +4,12 @@ Config files for my GitHub profile.
 
 Using [streamlit](https://streamlit.io) to show the [Stock market prediction](https://c19sitdash.azurewebsites.net/) based on real time experience [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://muthu2312-stock-deployment-stock-prediction-wv6nnq.streamlit.app/)
 
-
-![Candle_stick](Image/candle.png)
+![About](Image/about.png)
+![Application](Image/app1.png)
+![Enter stock](Image/app2.png)
+![Data set](Image/app3.png)
+![Data vixualization](Image/app4.png)
+![Prediction](Image/app5.png)
 
 ## Code execution
 
