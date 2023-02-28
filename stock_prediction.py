@@ -75,7 +75,7 @@ try:
     if selected=='Application':
         st.sidebar.info('If you know the name of the stock, you can directly type your stock symbol', icon="ℹ️")
         st.sidebar.info('You can type the name of your desired comapny, the input will show multiple matches. You can use the respective stock symbol', icon="ℹ️")
-        st.sidebar.info('If you want to search for an Indian stock, type ur stock followed by ".NS". For eg, TCS.NS,ONGC.NS,RELIANCE.NS,IOC.NS,INFY.NS,etc.', icon="ℹ️"
+        st.sidebar.info('If you want to search for an Indian stock, type ur stock followed by ".NS". For eg, TCS.NS,ONGC.NS,RELIANCE.NS,IOC.NS,INFY.NS,etc.', icon="ℹ️")
         selected_stock = st.text_input('Enter your stock, eg. AAPL')
         selected_stock1=selected_stock.upper()
         df = load_data(selected_stock1)
