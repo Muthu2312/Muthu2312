@@ -14,6 +14,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from streamlit_option_menu import option_menu
+st.set_page_config(page_title="Stock Prediction", page_icon=":chart_with_upwards_trend:")
 
 import datetime as dt
 selected=option_menu(
@@ -40,6 +41,11 @@ def load_data(ticker):
     data = yf.download(ticker, START, END)
     data.reset_index(inplace=True)
     return data
+
+my_bar=st.progress(0)
+def update_progress(progress):
+        my_bar.progress(progress)
+
 
 if selected=='About':
     taba, tabc = st.tabs(["Introduction","Procedure"])
@@ -73,126 +79,137 @@ if selected=='About':
 
 try:
     if selected=='Application':
-        st.sidebar.info('If you know the name of the stock, you can directly type your stock symbol', icon="ℹ️")
-        st.sidebar.info('You can type the name of your desired comapny, the input will show multiple matches. You can use the respective stock symbol', icon="ℹ️")
-        st.sidebar.info('If you want to search for an Indian stock, type ur stock followed by ".NS". For eg, TCS.NS,ONGC.NS,RELIANCE.NS,IOC.NS,INFY.NS,etc.', icon="ℹ️")
+        data=pd.read_csv('stock.csv')
+        data.dropna(inplace=True)
         selected_stock = st.text_input('Enter your stock, eg. AAPL')
+        st.sidebar.title('Information:')
+        st.sidebar.info('Input is case sensitive. Stock symbols must be in capital letters.', icon="ℹ️")
+        st.sidebar.info('If you need predictions of an Indian stock, type your stock followed by ".NS". For eg, TCS.NS,ONGC.NS,RELIANCE.NS,IOC.NS,INFY.NS,etc.', icon="ℹ️")
+        st.sidebar.info('If you need prredictions of a Foreign stock,  type your stock according to Yahoo Finance. For eg, AAPL,TSLA,AMZN,GOOGL,etc.',icon="ℹ️")
+        st.sidebar.info('Prediction runtime is approximately 30 seconds.',icon="ℹ️")
+        
         selected_stock1=selected_stock.upper()
         df = load_data(selected_stock1)
         stock_name = data.loc[data['Symbol'].str.upper() == selected_stock, 'Name'].values[0]
         if selected_stock1 in data['Symbol'].str.upper().values:
-                stock_name = data.loc[data['Symbol'].str.upper() == selected_stock1, 'Name'].values[0]
-                st.header(f'The name of the stock with symbol {selected_stock1} is {stock_name}.')
-                tab2, tab3,tab4 = st.tabs(["Data-set", "Data Visualization", "Predictions"])
-                with tab2:
-                    data_load_state = st.text('Loading data...')
-                    st.write("You have entered", selected_stock)
-                    st.experimental_data_editor(df)  
-                    data_load_state.text('Loading data... done!')
-
-
-                df1=df.copy()
-                df1['Difference']=df1['Close']-df1['Open']
-
-                fig = go.Figure(data=[go.Candlestick(x=df["Date"],
-                                    open=df["Open"],
-                                    high=df["High"],
-                                    low=df["Low"],
-                                    close=df["Close"])])
-                fig.update_layout(
-                            title='Candlestick Chart',
-                            yaxis_title='Price',
-                            xaxis_rangeslider_visible=True)
-
-                fig2=px.line(df, x="Date", y="Close", title='Trend of Closing price')
-                fig2.update_xaxes(rangeslider_visible=True,rangeselector=dict(buttons=list([
-                            dict(count=1, label="1m", step="month", stepmode="backward"),
-                            dict(count=6, label="6m", step="month", stepmode="backward"),
-                            dict(count=1, label="YTD", step="year", stepmode="todate"),
-                            dict(count=1, label="1y", step="year", stepmode="backward"),
-                            dict(step="all")])))
-                fig3 = px.box(df, x=df['Date'].dt.year, y='Close', points='all', title='Box and Whisker Chart')
-
-                fig4=px.line(df, x="Date", y="Volume", title='Trend in Volume')
-                fig4.update_xaxes(rangeslider_visible=True,rangeselector=dict(buttons=list([
-                            dict(count=1, label="1m", step="month", stepmode="backward"),
-                            dict(count=6, label="6m", step="month", stepmode="backward"),
-                            dict(count=1, label="YTD", step="year", stepmode="todate"),
-                            dict(count=1, label="1y", step="year", stepmode="backward"),
-                            dict(step="all")])))
-
-                with tab3:
-                    st.plotly_chart(fig,use_container_width=True,renderer='webgl')
-                    st.plotly_chart(fig2,use_container_width=True,renderer='webgl')
-                    st.plotly_chart(fig3,use_container_width=True,renderer='webgl')
-                    st.plotly_chart(fig4,use_container_width=True,renderer='webgl')
-
-                df1=df.reset_index()['Close']
-                scaler=MinMaxScaler(feature_range=(0,1))
-                df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
-
-                training_size=int(len(df1)*0.7)
-                test_size=len(df1)-training_size
-                train_data,test_data=df1[0:training_size,:],df1[training_size:len(df1),:1]
-
-                def create_dataset(dataset, time_step=1):
-                    dataX, dataY = [], []
-                    for i in range(len(dataset)-time_step-1):
-                        a = dataset[i:(i+time_step), 0]   ###i=0, 0,1,2,3-----99   100 
-                        dataX.append(a)
-                        dataY.append(dataset[i + time_step, 0])
-                    return numpy.array(dataX), numpy.array(dataY)
-
-                time_step = 100
-                X_train, y_train = create_dataset(train_data, time_step)
-                X_test, ytest = create_dataset(test_data, time_step)
-
-                X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
-                X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
-
-
-                with tab4:
-                    model=Sequential()
-                    model.add(LSTM(50,return_sequences=True,input_shape=(100,1)))
-                    model.add(LSTM(50,return_sequences=True))
-                    model.add(LSTM(50))
-                    model.add(Dense(1))
-                    model.compile(loss='mean_squared_error',optimizer='adam')
-
-                    model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=20,batch_size=64,verbose=1)
-                    train_predict=model.predict(X_train)
-                    test_predict=model.predict(X_test)
-
-                    train_predict=scaler.inverse_transform(train_predict)
-                    test_predict=scaler.inverse_transform(test_predict)
-
-                    x_input=test_data[len(test_data)-100:].reshape(1,-1)
-                    temp_input=list(x_input)
-                    temp_input=temp_input[0].tolist()
-
-                    lst_output=[]
-                    n_steps=100
-                    i=0
-                    while(i<31):
-                        if(len(temp_input)>100):
-                            x_input=np.array(temp_input[1:])
-                            x_input=x_input.reshape(1,-1)
-                            x_input = x_input.reshape((1, n_steps, 1))
-                            yhat = model.predict(x_input, verbose=0)
-                            st.write("For Day {}, the predicted output is {}".format(i,scaler.inverse_transform(yhat)))
-                            temp_input.extend(yhat[0].tolist())
-                            temp_input=temp_input[1:]
-                            lst_output.extend(yhat.tolist())
-                            i=i+1
-                        else:
-                            x_input = x_input.reshape((1, n_steps,1))
-                            yhat = model.predict(x_input, verbose=0)
-                            temp_input.extend(yhat[0].tolist())
-                            lst_output.extend(yhat.tolist())
-                            i=i+1
-                        
+            stock_name = data.loc[data['Symbol'].str.upper() == selected_stock1, 'Name'].values[0]
+            st.success(f'The name of the stock with symbol {selected_stock1} is {stock_name}.')
         else:
-                st.header(f'Stock symbol {selected_stock} not found.')
-        
+            st.warning(f'Stock symbol {selected_stock} not found.',icon='⚠️')
+        tab2, tab3,tab4 = st.tabs(["Data-set", "Data Visualization", "Predictions"])
+        with tab2:
+                data_load_state = st.text('Loading data...')
+                st.write("You have entered", selected_stock)
+                st.experimental_data_editor(df)  
+                data_load_state.text('Loading data... done!')
+
+
+        df1=df.copy()
+        df1['Difference']=df1['Close']-df1['Open']
+
+        fig = go.Figure(data=[go.Candlestick(x=df["Date"],
+                            open=df["Open"],
+                            high=df["High"],
+                            low=df["Low"],
+                            close=df["Close"])])
+        fig.update_layout(
+                    title='Candlestick Chart',
+                    yaxis_title='Price',
+                    xaxis_rangeslider_visible=True)
+
+        fig2=px.line(df, x="Date", y="Close", title='Trend of Closing price')
+        fig2.update_xaxes(rangeslider_visible=True,rangeselector=dict(buttons=list([
+                    dict(count=1, label="1m", step="month", stepmode="backward"),
+                    dict(count=6, label="6m", step="month", stepmode="backward"),
+                    dict(count=1, label="YTD", step="year", stepmode="todate"),
+                    dict(count=1, label="1y", step="year", stepmode="backward"),
+                    dict(step="all")])))
+        fig3 = px.box(df, x=df['Date'].dt.year, y='Close', points='all', title='Box and Whisker Chart')
+
+        fig4=px.line(df, x="Date", y="Volume", title='Trend in Volume')
+        fig4.update_xaxes(rangeslider_visible=True,rangeselector=dict(buttons=list([
+                    dict(count=1, label="1m", step="month", stepmode="backward"),
+                    dict(count=6, label="6m", step="month", stepmode="backward"),
+                    dict(count=1, label="YTD", step="year", stepmode="todate"),
+                    dict(count=1, label="1y", step="year", stepmode="backward"),
+                    dict(step="all")])))
+
+        with tab3:
+            st.plotly_chart(fig,use_container_width=True,renderer='webgl')
+            st.plotly_chart(fig2,use_container_width=True,renderer='webgl')
+            st.plotly_chart(fig3,use_container_width=True,renderer='webgl')
+            st.plotly_chart(fig4,use_container_width=True,renderer='webgl')
+
+        df1=df.reset_index()['Close']
+        scaler=MinMaxScaler(feature_range=(0,1))
+        df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
+
+        training_size=int(len(df1)*0.7)
+        test_size=len(df1)-training_size
+        train_data,test_data=df1[0:training_size,:],df1[training_size:len(df1),:1]
+
+        def create_dataset(dataset, time_step=1):
+            dataX, dataY = [], []
+            for i in range(len(dataset)-time_step-1):
+                a = dataset[i:(i+time_step), 0]   ###i=0, 0,1,2,3-----99   100 
+                dataX.append(a)
+                dataY.append(dataset[i + time_step, 0])
+            return numpy.array(dataX), numpy.array(dataY)
+
+        time_step = 100
+        X_train, y_train = create_dataset(train_data, time_step)
+        X_test, ytest = create_dataset(test_data, time_step)
+
+        X_train =X_train.reshape(X_train.shape[0],X_train.shape[1] , 1)
+        X_test = X_test.reshape(X_test.shape[0],X_test.shape[1] , 1)
+
+
+        with tab4:
+                progress_text='Operation in Progress.Please wait.'
+                model=Sequential()
+                model.add(LSTM(50,return_sequences=True,input_shape=(100,1)))
+                model.add(LSTM(50,return_sequences=True))
+                model.add(LSTM(50))
+                model.add(Dense(1))
+                model.compile(loss='mean_squared_error',optimizer='adam')
+
+                model.fit(X_train,y_train,validation_data=(X_test,ytest),epochs=20,batch_size=64,verbose=1)
+                train_predict=model.predict(X_train)
+                test_predict=model.predict(X_test)
+
+                train_predict=scaler.inverse_transform(train_predict)
+                test_predict=scaler.inverse_transform(test_predict)
+
+                x_input=test_data[len(test_data)-100:].reshape(1,-1)
+                temp_input=list(x_input)
+                temp_input=temp_input[0].tolist()
+
+                lst_output=[]
+                n_steps=100
+                i=0
+                while(i<31):
+                        if(len(temp_input)>100):
+                                x_input=np.array(temp_input[1:])
+                                x_input=x_input.reshape(1,-1)
+                                x_input = x_input.reshape((1, n_steps, 1))
+                                yhat = model.predict(x_input, verbose=0)
+                                st.write("For Day {}, the predicted output is {}".format(i,scaler.inverse_transform(yhat)))
+                                temp_input.extend(yhat[0].tolist())
+                                temp_input=temp_input[1:]
+                                lst_output.extend(yhat.tolist())
+                                i=i+1
+                                progress_text = "Prediction for day {} of 30".format(i)
+                                percent_complete = int((i / 30) * 100)
+                                update_progress(percent_complete)
+                        else:
+                                x_input = x_input.reshape((1, n_steps,1))
+                                yhat = model.predict(x_input, verbose=0)
+                                temp_input.extend(yhat[0].tolist())
+                                lst_output.extend(yhat.tolist())
+                                i=i+1
+                                progress_text = "Prediction for day {} of 30".format(i)
+                                percent_complete = int((i / 30) * 100)
+                                update_progress(percent_complete)
+
 except:
         st.write("Enter stock In capital letters")
