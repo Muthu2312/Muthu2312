@@ -16,6 +16,11 @@ from sklearn.preprocessing import MinMaxScaler
 from streamlit_option_menu import option_menu
 st.set_page_config(page_title="Stock Prediction", page_icon=":chart_with_upwards_trend:")
 
+import toml
+
+config = toml.load("config.toml")
+
+
 import datetime as dt
 selected=option_menu(
         menu_title='Stock Market Prediction',
